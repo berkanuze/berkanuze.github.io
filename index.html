@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berkan Uze – Academic Website</title>
+  <style>
+    /* ---------- Color Scheme ---------- */
+    :root {
+      --bg-color: #fdfdfd;
+      --text-color: #222;
+      --accent-color: #6b46c1; /* purple accent */
+      --link-hover: #d69e2e;   /* golden hover */
+    }
+
+    body {
+      margin: 0;
+      font-family: "Georgia", serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 700px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    img {
+      border-radius: 50%;
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      margin: 1.5rem 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    p.tagline {
+      font-size: 1.1rem;
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 1.05rem;
+      color: var(--accent-color);
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--link-hover);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Berkan Uze</h1>
+    <img src="Pic.JPG" alt="Portrait of Berkan Uze">
+    <p class="tagline">Flaneur-scholar, PhD Student in Mathematics, translator, and wayward dilettante</p>
+    <nav>
+      <a href="Berkan Resume.pdf">C.V.</a>
+      <a href="Thesis.pdf">M.S. Thesis</a>
+      <a href="Interests.html">Interests & Projects</a>
+      <a href="Translations">Translations</a>
+    </nav>
+  </div>
+</body>
+</html>
