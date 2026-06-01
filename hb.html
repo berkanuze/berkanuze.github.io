@@ -6,354 +6,484 @@
 <title>Paradox Strands</title>
 <style>
 :root{
-  --bg:#0f1117;
-  --panel:#171a24;
-  --panel2:#202436;
-  --text:#f2f0ea;
-  --muted:#b9b4aa;
-  --accent:#d6b46a;
-  --accent2:#8bd3dd;
-  --danger:#e07a7a;
-  --ok:#9ad29a;
-  --line:#34394d;
+  --bg:#0f1117; --panel:#171a24; --panel2:#202436; --text:#f2f0ea; --muted:#b9b4aa;
+  --accent:#d6b46a; --accent2:#8bd3dd; --danger:#e07a7a; --ok:#9ad29a; --line:#34394d;
 }
 *{box-sizing:border-box}
 body{
-  margin:0;
-  min-height:100vh;
-  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  margin:0; min-height:100vh; font-family:ui-serif, Georgia, "Times New Roman", serif;
   background:
     radial-gradient(circle at 20% 10%, rgba(214,180,106,.18), transparent 30%),
     radial-gradient(circle at 80% 0%, rgba(139,211,221,.13), transparent 35%),
     var(--bg);
-  color:var(--text);
-  line-height:1.55;
+  color:var(--text); line-height:1.55;
 }
-main{
-  width:min(900px, 94vw);
-  margin:0 auto;
-  padding:38px 0 70px;
-}
-header{
-  text-align:center;
-  margin-bottom:30px;
-}
-.kicker{
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--accent);
-  font-size:.78rem;
-}
-h1{
-  font-size:clamp(2.1rem, 7vw, 4.8rem);
-  margin:.05em 0 .15em;
-  line-height:.95;
-}
-.subtitle{
-  color:var(--muted);
-  max-width:680px;
-  margin:0 auto;
-}
-.progress{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-  margin:28px auto;
-  max-width:680px;
-}
-.step{
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:7px 8px;
-  color:var(--muted);
-  font-size:.82rem;
-  background:rgba(255,255,255,.03);
-}
-.step.done{border-color:var(--accent); color:var(--text)}
-.card{
-  display:none;
-  background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:26px;
-  margin:22px 0;
-  box-shadow:0 20px 70px rgba(0,0,0,.22);
-}
+main{width:min(920px,94vw);margin:0 auto;padding:38px 0 70px}
+header{text-align:center;margin-bottom:30px}
+.kicker{letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-size:.78rem}
+h1{font-size:clamp(2.1rem,7vw,4.8rem);margin:.05em 0 .15em;line-height:.95}
+.subtitle{color:var(--muted);max-width:720px;margin:0 auto}
+.progress{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:28px auto;max-width:860px}
+.step{border:1px solid var(--line);border-radius:999px;padding:7px 6px;color:var(--muted);font-size:.75rem;background:rgba(255,255,255,.03)}
+.step.done{border-color:var(--accent);color:var(--text)}
+.card{display:none;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:22px;padding:26px;margin:22px 0;box-shadow:0 20px 70px rgba(0,0,0,.22)}
 .card.active{display:block}
-.chapter{
-  color:var(--accent2);
-  letter-spacing:.16em;
+.chapter{color:var(--accent2);letter-spacing:.16em;text-transform:uppercase;font-size:.76rem;margin-bottom:4px}
+h2{font-size:2rem;margin:.1em 0 .4em}
+.words{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.word{border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:8px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.94rem}
+blockquote{border-left:3px solid var(--accent);margin:18px 0;padding:8px 0 8px 18px;color:#fff6dc;font-size:1.1rem}
+.rules{color:var(--muted);padding-left:22px}
+.panel{background:rgba(0,0,0,.18);border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0}
+input,textarea{width:100%;background:#0e1018;border:1px solid var(--line);color:var(--text);padding:12px 14px;border-radius:12px;font:inherit;outline:none}
+textarea{min-height:90px;resize:vertical}
+input:focus,textarea:focus{border-color:var(--accent)}
+button{border:1px solid var(--accent);background:rgba(214,180,106,.12);color:var(--text);border-radius:999px;padding:10px 16px;font:inherit;cursor:pointer;margin:8px 8px 0 0}
+button:hover{background:rgba(214,180,106,.22)}
+button.secondary{border-color:var(--line);background:rgba(255,255,255,.04)}
+button.ok{border-color:var(--ok)}
+.feedback{margin-top:12px;color:var(--muted)}
+.good{color:var(--ok)} .bad{color:var(--danger)}
+.hidden{display:none}
+.choicegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
+.choicegrid button{margin:0;border-radius:14px}
+.finale{text-align:center;padding:28px;border-radius:18px;background:radial-gradient(circle,rgba(214,180,106,.16),rgba(255,255,255,.03))}
+.big{font-size:clamp(2rem,8vw,4.6rem);line-height:1;margin:12px 0}
+.smallcaps{text-transform:uppercase;letter-spacing:.17em;color:var(--accent);font-size:.78rem}
+footer{color:var(--muted);text-align:center;margin-top:32px;font-size:.88rem}
+#birthdayCanvas{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:20;
+}
+#birthdayOverlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  z-index:21;
+  background:radial-gradient(circle, rgba(214,180,106,.12), transparent 58%);
+}
+#birthdayOverlay.show{display:flex;animation:fadeInOut 5.5s ease forwards}
+#birthdaySigil{
+  border:1px solid rgba(214,180,106,.55);
+  border-radius:999px;
+  padding:24px 34px;
+  background:rgba(15,17,23,.72);
+  box-shadow:0 0 80px rgba(214,180,106,.22);
+  text-align:center;
+  backdrop-filter:blur(6px);
+}
+#birthdaySigil .sigilTop{
+  color:var(--accent);
+  letter-spacing:.2em;
   text-transform:uppercase;
   font-size:.76rem;
-  margin-bottom:4px;
 }
-h2{font-size:2rem;margin:.1em 0 .4em}
-.words{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin:18px 0;
+#birthdaySigil .sigilMain{
+  font-size:clamp(2rem,8vw,5rem);
+  line-height:1;
+  margin-top:8px;
 }
-.word{
-  border:1px solid var(--line);
-  background:var(--panel2);
-  border-radius:999px;
-  padding:8px 12px;
-  font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size:.94rem;
+#syllabus{
+  margin-top:24px;
+  text-align:left;
 }
-blockquote{
-  border-left:3px solid var(--accent);
-  margin:18px 0;
-  padding:8px 0 8px 18px;
-  color:#fff6dc;
-  font-size:1.1rem;
+#syllabus h3{
+  font-size:1.65rem;
+  margin:.2em 0 .4em;
 }
-.rules{
+.syllabusIntro{
   color:var(--muted);
-  padding-left:22px;
+  max-width:720px;
 }
-.panel{
+.comicGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:14px;
+  margin-top:18px;
+}
+.comicCard{
+  background:#f3ead7;
+  color:#17130c;
+  border:3px solid #17130c;
+  border-radius:8px;
+  padding:12px;
+  box-shadow:6px 6px 0 rgba(0,0,0,.35);
+  font-family:ui-serif, Georgia, serif;
+}
+.comicCard h4{
+  margin:.2em 0 .35em;
+  font-size:1.05rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.comicCard p{
+  margin:.45em 0;
+  font-size:.95rem;
+}
+.comicCard .tag{
+  display:inline-block;
+  margin-top:6px;
+  padding:3px 7px;
+  border:2px solid #17130c;
+  border-radius:999px;
+  background:#fff8e7;
+  font-size:.78rem;
+  font-weight:bold;
+}
+.comicPanel{
+  width:100%;
+  height:116px;
+  border:2px solid #17130c;
+  background:#fff8e7;
+  margin:8px 0 10px;
+}
+.readingList{
+  margin-top:18px;
   background:rgba(0,0,0,.18);
   border:1px solid var(--line);
   border-radius:14px;
   padding:16px;
-  margin:16px 0;
 }
-input, textarea{
-  width:100%;
-  background:#0e1018;
-  border:1px solid var(--line);
-  color:var(--text);
-  padding:12px 14px;
-  border-radius:12px;
-  font:inherit;
-  outline:none;
+.readingList ul{margin:.4em 0 0;padding-left:20px}
+.readingList li{margin:.35em 0;color:var(--muted)}
+@keyframes fadeInOut{
+  0%{opacity:0;transform:scale(.96)}
+  12%{opacity:1;transform:scale(1)}
+  76%{opacity:1}
+  100%{opacity:0}
 }
-textarea{min-height:90px;resize:vertical}
-input:focus, textarea:focus{border-color:var(--accent)}
-button{
-  border:1px solid var(--accent);
-  background:rgba(214,180,106,.12);
-  color:var(--text);
-  border-radius:999px;
-  padding:10px 16px;
-  font:inherit;
-  cursor:pointer;
-  margin:8px 8px 0 0;
-}
-button:hover{background:rgba(214,180,106,.22)}
-button.secondary{border-color:var(--line);background:rgba(255,255,255,.04)}
-button.danger{border-color:var(--danger)}
-button.ok{border-color:var(--ok)}
-.feedback{
-  margin-top:12px;
-  color:var(--muted);
-}
-.good{color:var(--ok)}
-.bad{color:var(--danger)}
-.hidden{display:none}
-.finale{
-  text-align:center;
-  padding:28px;
-  border-radius:18px;
-  background:radial-gradient(circle, rgba(214,180,106,.16), rgba(255,255,255,.03));
-}
-.big{
-  font-size:clamp(2rem, 8vw, 4.6rem);
-  line-height:1;
-  margin:12px 0;
-}
-.smallcaps{
-  text-transform:uppercase;
-  letter-spacing:.17em;
-  color:var(--accent);
-  font-size:.78rem;
-}
-footer{
-  color:var(--muted);
-  text-align:center;
-  margin-top:32px;
-  font-size:.88rem;
-}
+@media(max-width:720px){.progress{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
+<canvas id="birthdayCanvas"></canvas>
+<div id="birthdayOverlay">
+  <div id="birthdaySigil">
+    <div class="sigilTop">the system opens</div>
+    <div class="sigilMain">🎂 ✦ ❤️</div>
+  </div>
+</div>
 <main>
 <header>
   <div class="kicker">a birthday anti-puzzle</div>
   <h1>Paradox Strands</h1>
-  <p class="subtitle">Four chapters. Each one behaves less like a word puzzle and more like a small machine for breaking the idea of a word puzzle.</p>
+  <p class="subtitle">Seven chapters. Each one behaves less like a word puzzle and more like a small machine for breaking the idea of a word puzzle.</p>
   <div class="progress">
     <div id="s1" class="step done">I · Unsolvable</div>
     <div id="s2" class="step">II · Observer</div>
-    <div id="s3" class="step">III · Anti‑Strands</div>
-    <div id="s4" class="step">IV · Gödel</div>
+    <div id="s3" class="step">III · Type</div>
+    <div id="s4" class="step">IV · Barber</div>
+    <div id="s5" class="step">V · Anti</div>
+    <div id="s6" class="step">VI · Fixed</div>
+    <div id="s7" class="step">VII · Gödel</div>
   </div>
 </header>
 
 <section id="c1" class="card active">
-  <div class="chapter">Chapter I</div>
-  <h2>Unsolvable</h2>
+  <div class="chapter">Chapter I</div><h2>Unsolvable</h2>
   <p><strong>Question:</strong> Which of the eight words below is the decoy?</p>
-  <div class="words">
-    <span class="word">THEME</span><span class="word">WORD</span><span class="word">CLUE</span><span class="word">ANSWER</span>
-    <span class="word">HINT</span><span class="word">PUZZLE</span><span class="word">SPANGRAM</span><span class="word">DECOY</span>
-  </div>
-  <ol class="rules">
-    <li>Exactly one word is a decoy.</li>
-    <li>The decoy is the only word that does not fit the theme.</li>
-    <li>The theme is: “words that fit the theme.”</li>
-  </ol>
-  <div class="panel">
-    <input id="a1" placeholder="Enter the decoy..." />
-    <button onclick="check1()">Submit</button>
-    <button class="secondary" onclick="hint('h1')">Hint</button>
-    <div id="h1" class="feedback hidden">Try DECOY. Then ask whether it still fails to fit.</div>
-    <div id="f1" class="feedback"></div>
-  </div>
+  <div class="words"><span class="word">THEME</span><span class="word">WORD</span><span class="word">CLUE</span><span class="word">ANSWER</span><span class="word">HINT</span><span class="word">PUZZLE</span><span class="word">SPANGRAM</span><span class="word">DECOY</span></div>
+  <ol class="rules"><li>Exactly one word is a decoy.</li><li>The decoy is the only word that does not fit the theme.</li><li>The theme is: “words that fit the theme.”</li></ol>
+  <div class="panel"><input id="a1" placeholder="Enter the decoy..." /><button onclick="check1()">Submit</button><button class="secondary" onclick="hint('h1')">Hint</button><div id="h1" class="feedback hidden">Try DECOY. Then ask whether it still fails to fit.</div><div id="f1" class="feedback"></div></div>
 </section>
 
 <section id="c2" class="card">
-  <div class="chapter">Chapter II</div>
-  <h2>Observer Effect</h2>
-  <p><strong>Find the theme.</strong></p>
-  <div class="words">
-    <span class="word">TRUE</span><span class="word">FALSE</span><span class="word">PROVABLE</span><span class="word">UNPROVABLE</span>
-    <span class="word">KNOWN</span><span class="word">UNKNOWN</span><span class="word">CORRECT</span><span class="word">INCORRECT</span>
-  </div>
-  <blockquote>The moment you identify the theme, one of the words changes category.</blockquote>
-  <div class="panel">
-    <input id="a2" placeholder="Enter the theme..." />
-    <button onclick="check2()">Submit</button>
-    <button class="secondary" onclick="hint('h2')">Hint</button>
-    <div id="h2" class="feedback hidden">Before solving, the theme is UNKNOWN. After solving, it is KNOWN.</div>
-    <div id="f2" class="feedback"></div>
-  </div>
+  <div class="chapter">Chapter II</div><h2>Observer Effect</h2>
+  <p><strong>Classify the special word.</strong></p>
+  <p>Before the puzzle is solved, exactly one word below is <em>unobserved</em>. After you identify it, that same word is no longer unobserved.</p>
+  <div class="words"><span class="word">SEEN</span><span class="word">NAMED</span><span class="word">READ</span><span class="word">FOUND</span><span class="word">KNOWN</span><span class="word">CHOSEN</span><span class="word">MARKED</span><span class="word">UNOBSERVED</span></div>
+  <blockquote>The answer changes its own status when answered.</blockquote>
+  <div class="panel"><p>Which word is special?</p><div class="choicegrid">
+    <button onclick="check2('seen')">SEEN</button><button onclick="check2('named')">NAMED</button><button onclick="check2('read')">READ</button><button onclick="check2('found')">FOUND</button><button onclick="check2('known')">KNOWN</button><button onclick="check2('chosen')">CHOSEN</button><button onclick="check2('marked')">MARKED</button><button onclick="check2('unobserved')">UNOBSERVED</button>
+  </div><button class="secondary" onclick="hint('h2')">Hint</button><div id="h2" class="feedback hidden">The word is special only before you click it. Clicking it destroys the property that made it special.</div><div id="f2" class="feedback"></div></div>
 </section>
 
 <section id="c3" class="card">
-  <div class="chapter">Chapter III</div>
-  <h2>Anti‑Strands</h2>
-  <div class="words">
-    <span class="word">SPANGRAM</span><span class="word">THEME</span><span class="word">WORD</span><span class="word">PUZZLE</span>
-    <span class="word">ANSWER</span><span class="word">QUESTION</span><span class="word">RULE</span><span class="word">EXCEPTION</span>
-  </div>
-  <p><strong>Exactly seven of these belong.</strong></p>
-  <p>The exception is whichever word you choose as the exception.</p>
-  <p><strong>Prove it.</strong></p>
-  <div class="panel">
-    <input id="a3word" placeholder="Choose the exception..." />
-    <textarea id="a3proof" placeholder="Give a one-sentence proof..."></textarea>
-    <button onclick="check3()">Submit</button>
-    <button class="secondary" onclick="hint('h3')">Hint</button>
-    <div id="h3" class="feedback hidden">You are not finding the hidden rule. You are choosing a rule under which your exception is exceptional.</div>
-    <div id="f3" class="feedback"></div>
-  </div>
+  <div class="chapter">Chapter III</div><h2>Type Error</h2>
+  <p>One item below is not like the others. But it is not allowed to be compared to the others.</p>
+  <div class="words"><span class="word">NOUN</span><span class="word">VERB</span><span class="word">ADJECTIVE</span><span class="word">ADVERB</span><span class="word">PRONOUN</span><span class="word">PREPOSITION</span><span class="word">CONJUNCTION</span><span class="word">CATEGORY</span></div>
+  <blockquote>A member may belong to a category. But can a category belong to the same category as its members?</blockquote>
+  <div class="panel"><input id="a3" placeholder="Enter the type error..." /><button onclick="check3()">Submit</button><button class="secondary" onclick="hint('h3')">Hint</button><div id="h3" class="feedback hidden">Seven are parts of speech. One names the level on which “parts of speech” are sorted.</div><div id="f3" class="feedback"></div></div>
 </section>
 
 <section id="c4" class="card">
-  <div class="chapter">Final Chapter</div>
-  <h2>Gödel’s Birthday Machine</h2>
+  <div class="chapter">Chapter IV</div><h2>The Barber Word</h2>
+  <p>A village contains words. A word is <em>self-applying</em> if it describes itself.</p>
+  <p>Example: <span class="word">SHORT</span> is short. <span class="word">ENGLISH</span> is English.</p>
+  <blockquote>Find the word that applies to exactly the words that do not apply to themselves.</blockquote>
+  <div class="words"><span class="word">SHORT</span><span class="word">ENGLISH</span><span class="word">LONG</span><span class="word">PRINTED</span><span class="word">SELF-APPLYING</span><span class="word">NON-SELF-APPLYING</span></div>
+  <div class="panel"><input id="a4" placeholder="Enter the paradox word..." /><button onclick="check4()">Submit</button><button class="secondary" onclick="hint('h4')">Hint</button><div id="h4" class="feedback hidden">Ask whether NON-SELF-APPLYING applies to itself.</div><div id="f4" class="feedback"></div></div>
+</section>
+
+<section id="c5" class="card">
+  <div class="chapter">Chapter V</div><h2>Anti‑Strands</h2>
+  <div class="words"><span class="word">SPANGRAM</span><span class="word">THEME</span><span class="word">WORD</span><span class="word">PUZZLE</span><span class="word">ANSWER</span><span class="word">QUESTION</span><span class="word">RULE</span><span class="word">EXCEPTION</span></div>
+  <p><strong>Exactly seven of these belong.</strong></p><p>The exception is whichever word you choose as the exception.</p><p><strong>Prove it.</strong></p>
+  <div class="panel"><input id="a5word" placeholder="Choose the exception..." /><textarea id="a5proof" placeholder="Give a one-sentence proof..."></textarea><button onclick="check5()">Submit</button><button class="secondary" onclick="hint('h5')">Hint</button><div id="h5" class="feedback hidden">You are not finding the hidden rule. You are choosing a rule under which your exception is exceptional.</div><div id="f5" class="feedback"></div></div>
+</section>
+
+<section id="c6" class="card">
+  <div class="chapter">Chapter VI</div><h2>Fixed Point</h2>
+  <p>Choose the statement that survives being made into a statement about itself.</p>
+  <div class="choicegrid">
+    <button onclick="check6('a')">This sentence has five words.</button>
+    <button onclick="check6('b')">This sentence is written in Turkish.</button>
+    <button onclick="check6('c')">This sentence is about this sentence.</button>
+    <button onclick="check6('d')">This sentence contains no vowels.</button>
+  </div>
+  <blockquote>The stable answer is not true because of external facts; it is true because of its own loop.</blockquote>
+  <div class="panel"><button class="secondary" onclick="hint('h6')">Hint</button><div id="h6" class="feedback hidden">Look for the sentence whose content and reference point coincide.</div><div id="f6" class="feedback"></div></div>
+</section>
+
+<section id="c7" class="card">
+  <div class="chapter">Final Chapter</div><h2>Gödel’s Birthday Machine</h2>
   <p>You now inherit a formal system <strong>F</strong>. It contains all previous puzzle rules.</p>
   <blockquote>G: “This sentence cannot be derived from the rules of this puzzle.”</blockquote>
   <p>Choose what happens to <strong>G</strong>.</p>
-  <div class="panel">
-    <button onclick="godel('provable')">G is derivable in F</button>
-    <button onclick="godel('false')">G is false</button>
-    <button onclick="godel('undecidable')" class="ok">G is true but not derivable in F</button>
-    <button onclick="godel('neither')">G is neither true nor false</button>
-    <div id="f4" class="feedback"></div>
-  </div>
-  <div id="godelWin" class="hidden">
-    <div class="panel">
-      <p><strong>Good.</strong> If F derives G, then F derives that G is not derivable. The system eats itself.</p>
-      <p>So, assuming F is consistent, G is not derivable. And that is exactly what G says.</p>
-      <p>The puzzle has a true answer which its own rules cannot certify.</p>
-      <button onclick="finale()">Use the loophole</button>
-    </div>
-  </div>
+  <div class="panel"><button onclick="godel('provable')">G is derivable in F</button><button onclick="godel('false')">G is false</button><button onclick="godel('undecidable')" class="ok">G is true but not derivable in F</button><button onclick="godel('neither')">G is neither true nor false</button><div id="f7" class="feedback"></div></div>
+  <div id="godelWin" class="hidden"><div class="panel"><p><strong>Good.</strong> If F derives G, then F derives that G is not derivable. The system eats itself.</p><p>So, assuming F is consistent, G is not derivable. And that is exactly what G says.</p><p>The puzzle has a true answer which its own rules cannot certify.</p><button onclick="finale()">Use the loophole</button></div></div>
   <div id="finale" class="hidden finale">
     <div class="smallcaps">outside the system</div>
     <div class="big">Happy Birthday ❤️</div>
     <p>Some statements do not need proof. This is one of them.</p>
+
+    <section id="syllabus">
+      <div class="smallcaps">bonus epilogue</div>
+      <h3>Mini‑Syllabus: Paradox, Crisis, Foundations</h3>
+      <p class="syllabusIntro">A tiny after‑credits map of the ideas hiding under the game: self-reference, Russell’s paradox, formalism, intuitionism, logicism, and Gödel’s limit theorem.</p>
+
+      <div class="comicGrid">
+        <article class="comicCard">
+          <h4>1. The Barber Trap</h4>
+          <svg class="comicPanel" viewBox="0 0 300 120" aria-label="Barber paradox illustration">
+            <rect x="0" y="0" width="300" height="120" fill="#fff8e7"/>
+            <circle cx="62" cy="65" r="24" fill="none" stroke="#17130c" stroke-width="4"/>
+            <path d="M45 61 Q62 78 79 61" fill="none" stroke="#17130c" stroke-width="3"/>
+            <path d="M118 20 h140 q15 0 15 15 v34 q0 15-15 15 h-82 l-28 22 10-22 h-40 q-15 0-15-15 v-34 q0-15 15-15z" fill="#f3ead7" stroke="#17130c" stroke-width="3"/>
+            <text x="132" y="44" font-size="14" fill="#17130c">I shave all</text>
+            <text x="132" y="62" font-size="14" fill="#17130c">who don’t</text>
+            <text x="132" y="80" font-size="14" fill="#17130c">shave themselves.</text>
+          </svg>
+          <p>Russell-style self-reference: does the barber shave himself? Either answer flips into contradiction.</p>
+          <span class="tag">Core idea: impredicativity</span>
+        </article>
+
+        <article class="comicCard">
+          <h4>2. Russell’s Set</h4>
+          <svg class="comicPanel" viewBox="0 0 300 120" aria-label="Russell set illustration">
+            <rect width="300" height="120" fill="#fff8e7"/>
+            <circle cx="95" cy="60" r="42" fill="none" stroke="#17130c" stroke-width="4"/>
+            <text x="61" y="56" font-size="13" fill="#17130c">sets that</text>
+            <text x="47" y="74" font-size="13" fill="#17130c">exclude selves</text>
+            <path d="M174 30 l68 0 25 30 -25 30 -68 0 -25 -30z" fill="#f3ead7" stroke="#17130c" stroke-width="3"/>
+            <text x="178" y="65" font-size="18" fill="#17130c">R ∈ R?</text>
+          </svg>
+          <p>Let R be the set of all sets that are not members of themselves. Is R a member of R?</p>
+          <span class="tag">Core idea: unrestricted comprehension fails</span>
+        </article>
+
+        <article class="comicCard">
+          <h4>3. Three Camps</h4>
+          <svg class="comicPanel" viewBox="0 0 300 120" aria-label="Logicism formalism intuitionism">
+            <rect width="300" height="120" fill="#fff8e7"/>
+            <rect x="17" y="28" width="76" height="58" fill="#f3ead7" stroke="#17130c" stroke-width="3"/>
+            <rect x="112" y="28" width="76" height="58" fill="#f3ead7" stroke="#17130c" stroke-width="3"/>
+            <rect x="207" y="28" width="76" height="58" fill="#f3ead7" stroke="#17130c" stroke-width="3"/>
+            <text x="25" y="61" font-size="13" fill="#17130c">Logic</text>
+            <text x="118" y="61" font-size="13" fill="#17130c">Symbols</text>
+            <text x="214" y="61" font-size="13" fill="#17130c">Construct</text>
+          </svg>
+          <p>Logicists sought mathematics in logic; formalists in symbol games; intuitionists in constructive mental acts.</p>
+          <span class="tag">Core idea: rival foundations</span>
+        </article>
+
+        <article class="comicCard">
+          <h4>4. Hilbert’s Dream</h4>
+          <svg class="comicPanel" viewBox="0 0 300 120" aria-label="Hilbert program illustration">
+            <rect width="300" height="120" fill="#fff8e7"/>
+            <path d="M60 92 L150 24 L240 92 Z" fill="#f3ead7" stroke="#17130c" stroke-width="4"/>
+            <text x="105" y="84" font-size="15" fill="#17130c">CONSISTENT</text>
+            <path d="M145 24 v68" stroke="#17130c" stroke-width="3"/>
+            <text x="162" y="54" font-size="14" fill="#17130c">COMPLETE</text>
+          </svg>
+          <p>Hilbert wanted secure axioms and finitary proofs that mathematics would never contradict itself.</p>
+          <span class="tag">Core idea: consistency proof</span>
+        </article>
+
+        <article class="comicCard">
+          <h4>5. Gödel’s Knife</h4>
+          <svg class="comicPanel" viewBox="0 0 300 120" aria-label="Godel incompleteness illustration">
+            <rect width="300" height="120" fill="#fff8e7"/>
+            <rect x="44" y="24" width="106" height="72" fill="#f3ead7" stroke="#17130c" stroke-width="3"/>
+            <text x="72" y="64" font-size="20" fill="#17130c">F</text>
+            <path d="M170 24 L252 96" stroke="#17130c" stroke-width="5"/>
+            <path d="M252 24 L170 96" stroke="#17130c" stroke-width="5"/>
+            <text x="64" y="86" font-size="12" fill="#17130c">inside system</text>
+            <text x="168" y="64" font-size="14" fill="#17130c">truth escapes</text>
+          </svg>
+          <p>Any sufficiently strong consistent formal system leaves some arithmetic truths unprovable inside it.</p>
+          <span class="tag">Core idea: incompleteness</span>
+        </article>
+
+        <article class="comicCard">
+          <h4>6. After the Crisis</h4>
+          <svg class="comicPanel" viewBox="0 0 300 120" aria-label="Modern foundations illustration">
+            <rect width="300" height="120" fill="#fff8e7"/>
+            <circle cx="72" cy="58" r="30" fill="#f3ead7" stroke="#17130c" stroke-width="3"/>
+            <circle cx="150" cy="58" r="30" fill="#f3ead7" stroke="#17130c" stroke-width="3"/>
+            <circle cx="228" cy="58" r="30" fill="#f3ead7" stroke="#17130c" stroke-width="3"/>
+            <text x="58" y="63" font-size="13" fill="#17130c">ZFC</text>
+            <text x="135" y="63" font-size="13" fill="#17130c">Type</text>
+            <text x="210" y="63" font-size="13" fill="#17130c">Cat</text>
+          </svg>
+          <p>The crisis did not end mathematics. It diversified foundations: set theory, type theory, category theory, proof theory.</p>
+          <span class="tag">Core idea: pluralism</span>
+        </article>
+      </div>
+
+      <div class="readingList">
+        <strong>Suggested path after the game</strong>
+        <ul>
+          <li>Russell’s paradox and the failure of naive set comprehension.</li>
+          <li>Frege’s logicist project and why Russell’s letter mattered.</li>
+          <li>Hilbert’s program: consistency, completeness, decidability.</li>
+          <li>Brouwer and intuitionism: proof as construction.</li>
+          <li>Gödel’s incompleteness theorems and the separation of truth from proof.</li>
+          <li>Modern exits: ZFC, simple type theory, dependent type theory, category-theoretic foundations.</li>
+        </ul>
+      </div>
+    </section>
   </div>
 </section>
 
-<footer>
-  Built as a tiny self-referential birthday puzzle.
-</footer>
+<footer>Built as a tiny self-referential birthday puzzle.</footer>
 </main>
 
 <script>
 let unlocked = 1;
-
-function norm(s){
-  return (s || "").trim().toLowerCase().replace(/[^\w\s-]/g,"");
-}
+function norm(s){return (s||"").trim().toLowerCase().replace(/[^\w\s-]/g,"");}
 function unlock(n){
-  unlocked = Math.max(unlocked,n);
-  for(let i=1;i<=4;i++){
+  unlocked=Math.max(unlocked,n);
+  for(let i=1;i<=7;i++){
     document.getElementById("c"+i).classList.toggle("active", i===n);
     document.getElementById("s"+i).classList.toggle("done", i<=unlocked);
   }
   window.scrollTo({top:0, behavior:"smooth"});
 }
-function hint(id){
-  document.getElementById(id).classList.toggle("hidden");
-}
+function hint(id){document.getElementById(id).classList.toggle("hidden");}
 function check1(){
-  const a = norm(document.getElementById("a1").value);
-  const f = document.getElementById("f1");
-  if(a.includes("decoy")){
-    f.innerHTML = "<span class='good'>Correct, and therefore unstable.</span> If DECOY is the decoy, it fits the theme by naming its own role. If it fits, it stops being the decoy. Chapter I breaks uniqueness.";
-    setTimeout(()=>unlock(2), 1300);
-  } else {
-    f.innerHTML = "<span class='bad'>Not quite.</span> Pick the word whose exclusion makes it included.";
-  }
+  const a=norm(document.getElementById("a1").value), f=document.getElementById("f1");
+  if(a.includes("decoy")){f.innerHTML="<span class='good'>Correct, and therefore unstable.</span> If DECOY is the decoy, it fits by naming its own role. If it fits, it stops being the decoy."; setTimeout(()=>unlock(2),1300);}
+  else f.innerHTML="<span class='bad'>Not quite.</span> Pick the word whose exclusion makes it included.";
 }
-function check2(){
-  const a = norm(document.getElementById("a2").value);
-  const f = document.getElementById("f2");
-  if(a.includes("knowledge") || a.includes("epistem") || a.includes("information") || a.includes("truth")){
-    f.innerHTML = "<span class='good'>Accepted.</span> The list describes epistemic/logical statuses. Solving the puzzle moves UNKNOWN into KNOWN, so the puzzle changes under observation.";
-    setTimeout(()=>unlock(3), 1400);
-  } else {
-    f.innerHTML = "<span class='bad'>Close only if your answer changes the state of the puzzle.</span> Think knowledge, truth, proof, observation.";
-  }
+function check2(choice){
+  const f=document.getElementById("f2");
+  if(choice==="unobserved"){f.innerHTML="<span class='good'>Correct.</span> UNOBSERVED is special before it is chosen. Once chosen, it has been observed, named, found, known, chosen, and marked."; setTimeout(()=>unlock(3),1700);}
+  else f.innerHTML="<span class='bad'>No.</span> That word does not lose its defining property when clicked.";
 }
 function check3(){
-  const w = norm(document.getElementById("a3word").value);
-  const p = norm(document.getElementById("a3proof").value);
-  const valid = ["spangram","theme","word","puzzle","answer","question","rule","exception"].includes(w);
-  const enough = p.length > 24;
-  const f = document.getElementById("f3");
-  if(valid && enough){
-    f.innerHTML = "<span class='good'>Accepted.</span> Anti‑Strands has no privileged solution. You supplied a model in which your exception is the exception.";
-    setTimeout(()=>unlock(4), 1400);
-  } else if(!valid){
-    f.innerHTML = "<span class='bad'>Choose one of the eight displayed words.</span>";
-  } else {
-    f.innerHTML = "<span class='bad'>Give the rule that makes your chosen word exceptional.</span>";
-  }
+  const a=norm(document.getElementById("a3").value), f=document.getElementById("f3");
+  if(a.includes("category")){f.innerHTML="<span class='good'>Correct.</span> CATEGORY is not a part of speech in the same sense as the others; it names the level of classification."; setTimeout(()=>unlock(4),1400);}
+  else f.innerHTML="<span class='bad'>Not quite.</span> Find the item that lives one logical level above the others.";
+}
+function check4(){
+  const a=norm(document.getElementById("a4").value), f=document.getElementById("f4");
+  if(a.includes("non-self") || a.includes("non self") || a.includes("nonself")){
+    f.innerHTML="<span class='good'>Correct.</span> If NON-SELF-APPLYING applies to itself, then it should not. If it does not, then it should. Barber paradox, word edition.";
+    setTimeout(()=>unlock(5),1600);
+  } else f.innerHTML="<span class='bad'>Not quite.</span> The culprit is the word that claims to collect all words that do not collect themselves.";
+}
+function check5(){
+  const w=norm(document.getElementById("a5word").value), p=norm(document.getElementById("a5proof").value), f=document.getElementById("f5");
+  const valid=["spangram","theme","word","puzzle","answer","question","rule","exception"].includes(w);
+  if(valid && p.length>24){f.innerHTML="<span class='good'>Accepted.</span> Anti‑Strands has no privileged solution. You supplied a model in which your exception is the exception."; setTimeout(()=>unlock(6),1400);}
+  else if(!valid) f.innerHTML="<span class='bad'>Choose one of the eight displayed words.</span>";
+  else f.innerHTML="<span class='bad'>Give the rule that makes your chosen word exceptional.</span>";
+}
+function check6(choice){
+  const f=document.getElementById("f6");
+  if(choice==="c"){f.innerHTML="<span class='good'>Correct.</span> It is a fixed point: its content points exactly to its own pointing."; setTimeout(()=>unlock(7),1300);}
+  else f.innerHTML="<span class='bad'>No.</span> That sentence depends on an external or false condition rather than a stable self-reference.";
 }
 function godel(choice){
-  const f = document.getElementById("f4");
-  const win = document.getElementById("godelWin");
-  if(choice === "undecidable"){
-    f.innerHTML = "<span class='good'>Yes.</span> Truth and derivability separate.";
-    win.classList.remove("hidden");
-  } else if(choice === "provable"){
-    f.innerHTML = "<span class='bad'>If G is derivable, then what G says is false. A consistent system cannot afford that.</span>";
-  } else if(choice === "false"){
-    f.innerHTML = "<span class='bad'>If G is false, then it is derivable. But deriving it asserts its own underivability.</span>";
-  } else {
-    f.innerHTML = "<span class='bad'>Tempting, but this puzzle wants the classical Gödel move: true in the intended reading, not derivable inside F.</span>";
-  }
+  const f=document.getElementById("f7"), win=document.getElementById("godelWin");
+  if(choice==="undecidable"){f.innerHTML="<span class='good'>Yes.</span> Truth and derivability separate."; win.classList.remove("hidden");}
+  else if(choice==="provable") f.innerHTML="<span class='bad'>If G is derivable, then what G says is false. A consistent system cannot afford that.</span>";
+  else if(choice==="false") f.innerHTML="<span class='bad'>If G is false, then it is derivable. But deriving it asserts its own underivability.</span>";
+  else f.innerHTML="<span class='bad'>Tempting, but this puzzle wants the classical Gödel move: true in the intended reading, not derivable inside F.</span>";
 }
 function finale(){
   document.getElementById("finale").classList.remove("hidden");
   document.getElementById("finale").scrollIntoView({behavior:"smooth"});
+  birthdayEffect();
+}
+
+function birthdayEffect(){
+  const canvas = document.getElementById("birthdayCanvas");
+  const ctx = canvas.getContext("2d");
+  const overlay = document.getElementById("birthdayOverlay");
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+  const colors = ["#d6b46a","#8bd3dd","#f2f0ea","#e07a7a","#9ad29a"];
+  const particles = [];
+  const glyphs = ["✦","∴","♡","★","∞","∗","🎂"];
+
+  overlay.classList.remove("show");
+  void overlay.offsetWidth;
+  overlay.classList.add("show");
+
+  for(let i=0;i<170;i++){
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 2 + Math.random() * 8;
+    particles.push({
+      x: W/2,
+      y: H/2,
+      vx: Math.cos(angle)*speed,
+      vy: Math.sin(angle)*speed - 2.5,
+      life: 90 + Math.random()*55,
+      age: 0,
+      size: 5 + Math.random()*16,
+      spin: Math.random()*Math.PI,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      glyph: glyphs[Math.floor(Math.random()*glyphs.length)]
+    });
+  }
+
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of particles){
+      p.age++;
+      p.vy += 0.085;
+      p.vx *= 0.992;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.spin += 0.045;
+      const alpha = Math.max(0, 1 - p.age/p.life);
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.spin);
+      ctx.fillStyle = p.color;
+      ctx.font = `${p.size}px Georgia, serif`;
+      ctx.fillText(p.glyph,0,0);
+      ctx.restore();
+    }
+    if(particles.some(p => p.age < p.life)){
+      requestAnimationFrame(frame);
+    } else {
+      ctx.clearRect(0,0,W,H);
+    }
+  }
+  frame();
+
+  setTimeout(()=>{
+    overlay.classList.remove("show");
+  }, 5700);
 }
 </script>
 </body>
