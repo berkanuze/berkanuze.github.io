@@ -224,7 +224,7 @@ footer{color:var(--muted);text-align:center;margin-top:32px;font-size:.88rem}
   <div class="chapter">Chapter V</div><h2>Anti‑Strands</h2>
   <div class="words"><span class="word">SPANGRAM</span><span class="word">THEME</span><span class="word">WORD</span><span class="word">PUZZLE</span><span class="word">ANSWER</span><span class="word">QUESTION</span><span class="word">RULE</span><span class="word">EXCEPTION</span></div>
   <p><strong>Exactly seven of these belong.</strong></p><p>The exception is whichever word you choose as the exception.</p><p><strong>Prove it.</strong></p>
-  <div class="panel"><input id="a5word" placeholder="Choose the exception..." /><textarea id="a5proof" placeholder="Give a one-sentence proof..."></textarea><button onclick="check5()">Submit</button><button class="secondary" onclick="hint('h5')">Hint</button><div id="h5" class="feedback hidden">You are not finding the hidden rule. You are choosing a rule under which your exception is exceptional.</div><div id="f5" class="feedback"></div></div>
+  <div class="panel"><input id="a5word" placeholder="Choose the exception..." /><textarea id="a5proof" placeholder="Give a one-sentence proof, or simply choose a word..."></textarea><button onclick="check5()">Submit</button><button class="ok" onclick="force5()">Accept the paradox</button><button class="secondary" onclick="hint('h5')">Hint</button><div id="h5" class="feedback hidden">You are not finding the hidden rule. You are choosing a rule under which your exception is exceptional. Any displayed word can work.</div><div id="f5" class="feedback"></div></div>
 </section>
 
 <section id="c6" class="card">
@@ -399,11 +399,37 @@ function check4(){
   } else f.innerHTML="<span class='bad'>Not quite.</span> The culprit is the word that claims to collect all words that do not collect themselves.";
 }
 function check5(){
-  const w=norm(document.getElementById("a5word").value), p=norm(document.getElementById("a5proof").value), f=document.getElementById("f5");
-  const valid=["spangram","theme","word","puzzle","answer","question","rule","exception"].includes(w);
-  if(valid && p.length>24){f.innerHTML="<span class='good'>Accepted.</span> Anti‑Strands has no privileged solution. You supplied a model in which your exception is the exception."; setTimeout(()=>unlock(6),1400);}
-  else if(!valid) f.innerHTML="<span class='bad'>Choose one of the eight displayed words.</span>";
-  else f.innerHTML="<span class='bad'>Give the rule that makes your chosen word exceptional.</span>";
+  const rawWord = document.getElementById("a5word").value || "";
+  const w = norm(rawWord);
+  const p = norm(document.getElementById("a5proof").value);
+  const f = document.getElementById("f5");
+
+  const aliases = {
+    "spangram":"SPANGRAM",
+    "theme":"THEME",
+    "word":"WORD",
+    "puzzle":"PUZZLE",
+    "answer":"ANSWER",
+    "question":"QUESTION",
+    "rule":"RULE",
+    "exception":"EXCEPTION"
+  };
+
+  if(aliases[w]){
+    f.innerHTML = "<span class='good'>Accepted.</span> You chose <strong>" + aliases[w] + "</strong>. Anti‑Strands has no privileged solution: the exception is produced by the rule you impose. The proof is optional because the chapter itself is about rule-dependence.";
+    setTimeout(()=>unlock(6),1400);
+  } else if(p.length > 0) {
+    f.innerHTML = "<span class='good'>Accepted.</span> Your proof is treated as the rule. In Anti‑Strands, the solver constructs the exception rather than discovering it.";
+    setTimeout(()=>unlock(6),1400);
+  } else {
+    f.innerHTML = "<span class='bad'>Choose any displayed word, or write any short rule/proof.</span>";
+  }
+}
+
+function force5(){
+  const f = document.getElementById("f5");
+  f.innerHTML = "<span class='good'>Paradox accepted.</span> The chapter unlocks because Anti‑Strands has no privileged solution.";
+  setTimeout(()=>unlock(6),900);
 }
 function check6(choice){
   const f=document.getElementById("f6");
