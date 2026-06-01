@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paradox Strands</title>
+<style>
+:root{
+  --bg:#0f1117;
+  --panel:#171a24;
+  --panel2:#202436;
+  --text:#f2f0ea;
+  --muted:#b9b4aa;
+  --accent:#d6b46a;
+  --accent2:#8bd3dd;
+  --danger:#e07a7a;
+  --ok:#9ad29a;
+  --line:#34394d;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(214,180,106,.18), transparent 30%),
+    radial-gradient(circle at 80% 0%, rgba(139,211,221,.13), transparent 35%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.55;
+}
+main{
+  width:min(900px, 94vw);
+  margin:0 auto;
+  padding:38px 0 70px;
+}
+header{
+  text-align:center;
+  margin-bottom:30px;
+}
+.kicker{
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-size:.78rem;
+}
+h1{
+  font-size:clamp(2.1rem, 7vw, 4.8rem);
+  margin:.05em 0 .15em;
+  line-height:.95;
+}
+.subtitle{
+  color:var(--muted);
+  max-width:680px;
+  margin:0 auto;
+}
+.progress{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin:28px auto;
+  max-width:680px;
+}
+.step{
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:7px 8px;
+  color:var(--muted);
+  font-size:.82rem;
+  background:rgba(255,255,255,.03);
+}
+.step.done{border-color:var(--accent); color:var(--text)}
+.card{
+  display:none;
+  background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:26px;
+  margin:22px 0;
+  box-shadow:0 20px 70px rgba(0,0,0,.22);
+}
+.card.active{display:block}
+.chapter{
+  color:var(--accent2);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:.76rem;
+  margin-bottom:4px;
+}
+h2{font-size:2rem;margin:.1em 0 .4em}
+.words{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:18px 0;
+}
+.word{
+  border:1px solid var(--line);
+  background:var(--panel2);
+  border-radius:999px;
+  padding:8px 12px;
+  font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size:.94rem;
+}
+blockquote{
+  border-left:3px solid var(--accent);
+  margin:18px 0;
+  padding:8px 0 8px 18px;
+  color:#fff6dc;
+  font-size:1.1rem;
+}
+.rules{
+  color:var(--muted);
+  padding-left:22px;
+}
+.panel{
+  background:rgba(0,0,0,.18);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px;
+  margin:16px 0;
+}
+input, textarea{
+  width:100%;
+  background:#0e1018;
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:12px 14px;
+  border-radius:12px;
+  font:inherit;
+  outline:none;
+}
+textarea{min-height:90px;resize:vertical}
+input:focus, textarea:focus{border-color:var(--accent)}
+button{
+  border:1px solid var(--accent);
+  background:rgba(214,180,106,.12);
+  color:var(--text);
+  border-radius:999px;
+  padding:10px 16px;
+  font:inherit;
+  cursor:pointer;
+  margin:8px 8px 0 0;
+}
+button:hover{background:rgba(214,180,106,.22)}
+button.secondary{border-color:var(--line);background:rgba(255,255,255,.04)}
+button.danger{border-color:var(--danger)}
+button.ok{border-color:var(--ok)}
+.feedback{
+  margin-top:12px;
+  color:var(--muted);
+}
+.good{color:var(--ok)}
+.bad{color:var(--danger)}
+.hidden{display:none}
+.finale{
+  text-align:center;
+  padding:28px;
+  border-radius:18px;
+  background:radial-gradient(circle, rgba(214,180,106,.16), rgba(255,255,255,.03));
+}
+.big{
+  font-size:clamp(2rem, 8vw, 4.6rem);
+  line-height:1;
+  margin:12px 0;
+}
+.smallcaps{
+  text-transform:uppercase;
+  letter-spacing:.17em;
+  color:var(--accent);
+  font-size:.78rem;
+}
+footer{
+  color:var(--muted);
+  text-align:center;
+  margin-top:32px;
+  font-size:.88rem;
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="kicker">a birthday anti-puzzle</div>
+  <h1>Paradox Strands</h1>
+  <p class="subtitle">Four chapters. Each one behaves less like a word puzzle and more like a small machine for breaking the idea of a word puzzle.</p>
+  <div class="progress">
+    <div id="s1" class="step done">I · Unsolvable</div>
+    <div id="s2" class="step">II · Observer</div>
+    <div id="s3" class="step">III · Anti‑Strands</div>
+    <div id="s4" class="step">IV · Gödel</div>
+  </div>
+</header>
+
+<section id="c1" class="card active">
+  <div class="chapter">Chapter I</div>
+  <h2>Unsolvable</h2>
+  <p><strong>Question:</strong> Which of the eight words below is the decoy?</p>
+  <div class="words">
+    <span class="word">THEME</span><span class="word">WORD</span><span class="word">CLUE</span><span class="word">ANSWER</span>
+    <span class="word">HINT</span><span class="word">PUZZLE</span><span class="word">SPANGRAM</span><span class="word">DECOY</span>
+  </div>
+  <ol class="rules">
+    <li>Exactly one word is a decoy.</li>
+    <li>The decoy is the only word that does not fit the theme.</li>
+    <li>The theme is: “words that fit the theme.”</li>
+  </ol>
+  <div class="panel">
+    <input id="a1" placeholder="Enter the decoy..." />
+    <button onclick="check1()">Submit</button>
+    <button class="secondary" onclick="hint('h1')">Hint</button>
+    <div id="h1" class="feedback hidden">Try DECOY. Then ask whether it still fails to fit.</div>
+    <div id="f1" class="feedback"></div>
+  </div>
+</section>
+
+<section id="c2" class="card">
+  <div class="chapter">Chapter II</div>
+  <h2>Observer Effect</h2>
+  <p><strong>Find the theme.</strong></p>
+  <div class="words">
+    <span class="word">TRUE</span><span class="word">FALSE</span><span class="word">PROVABLE</span><span class="word">UNPROVABLE</span>
+    <span class="word">KNOWN</span><span class="word">UNKNOWN</span><span class="word">CORRECT</span><span class="word">INCORRECT</span>
+  </div>
+  <blockquote>The moment you identify the theme, one of the words changes category.</blockquote>
+  <div class="panel">
+    <input id="a2" placeholder="Enter the theme..." />
+    <button onclick="check2()">Submit</button>
+    <button class="secondary" onclick="hint('h2')">Hint</button>
+    <div id="h2" class="feedback hidden">Before solving, the theme is UNKNOWN. After solving, it is KNOWN.</div>
+    <div id="f2" class="feedback"></div>
+  </div>
+</section>
+
+<section id="c3" class="card">
+  <div class="chapter">Chapter III</div>
+  <h2>Anti‑Strands</h2>
+  <div class="words">
+    <span class="word">SPANGRAM</span><span class="word">THEME</span><span class="word">WORD</span><span class="word">PUZZLE</span>
+    <span class="word">ANSWER</span><span class="word">QUESTION</span><span class="word">RULE</span><span class="word">EXCEPTION</span>
+  </div>
+  <p><strong>Exactly seven of these belong.</strong></p>
+  <p>The exception is whichever word you choose as the exception.</p>
+  <p><strong>Prove it.</strong></p>
+  <div class="panel">
+    <input id="a3word" placeholder="Choose the exception..." />
+    <textarea id="a3proof" placeholder="Give a one-sentence proof..."></textarea>
+    <button onclick="check3()">Submit</button>
+    <button class="secondary" onclick="hint('h3')">Hint</button>
+    <div id="h3" class="feedback hidden">You are not finding the hidden rule. You are choosing a rule under which your exception is exceptional.</div>
+    <div id="f3" class="feedback"></div>
+  </div>
+</section>
+
+<section id="c4" class="card">
+  <div class="chapter">Final Chapter</div>
+  <h2>Gödel’s Birthday Machine</h2>
+  <p>You now inherit a formal system <strong>F</strong>. It contains all previous puzzle rules.</p>
+  <blockquote>G: “This sentence cannot be derived from the rules of this puzzle.”</blockquote>
+  <p>Choose what happens to <strong>G</strong>.</p>
+  <div class="panel">
+    <button onclick="godel('provable')">G is derivable in F</button>
+    <button onclick="godel('false')">G is false</button>
+    <button onclick="godel('undecidable')" class="ok">G is true but not derivable in F</button>
+    <button onclick="godel('neither')">G is neither true nor false</button>
+    <div id="f4" class="feedback"></div>
+  </div>
+  <div id="godelWin" class="hidden">
+    <div class="panel">
+      <p><strong>Good.</strong> If F derives G, then F derives that G is not derivable. The system eats itself.</p>
+      <p>So, assuming F is consistent, G is not derivable. And that is exactly what G says.</p>
+      <p>The puzzle has a true answer which its own rules cannot certify.</p>
+      <button onclick="finale()">Use the loophole</button>
+    </div>
+  </div>
+  <div id="finale" class="hidden finale">
+    <div class="smallcaps">outside the system</div>
+    <div class="big">Happy Birthday ❤️</div>
+    <p>Some statements do not need proof. This is one of them.</p>
+  </div>
+</section>
+
+<footer>
+  Built as a tiny self-referential birthday puzzle.
+</footer>
+</main>
+
+<script>
+let unlocked = 1;
+
+function norm(s){
+  return (s || "").trim().toLowerCase().replace(/[^\w\s-]/g,"");
+}
+function unlock(n){
+  unlocked = Math.max(unlocked,n);
+  for(let i=1;i<=4;i++){
+    document.getElementById("c"+i).classList.toggle("active", i===n);
+    document.getElementById("s"+i).classList.toggle("done", i<=unlocked);
+  }
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function hint(id){
+  document.getElementById(id).classList.toggle("hidden");
+}
+function check1(){
+  const a = norm(document.getElementById("a1").value);
+  const f = document.getElementById("f1");
+  if(a.includes("decoy")){
+    f.innerHTML = "<span class='good'>Correct, and therefore unstable.</span> If DECOY is the decoy, it fits the theme by naming its own role. If it fits, it stops being the decoy. Chapter I breaks uniqueness.";
+    setTimeout(()=>unlock(2), 1300);
+  } else {
+    f.innerHTML = "<span class='bad'>Not quite.</span> Pick the word whose exclusion makes it included.";
+  }
+}
+function check2(){
+  const a = norm(document.getElementById("a2").value);
+  const f = document.getElementById("f2");
+  if(a.includes("knowledge") || a.includes("epistem") || a.includes("information") || a.includes("truth")){
+    f.innerHTML = "<span class='good'>Accepted.</span> The list describes epistemic/logical statuses. Solving the puzzle moves UNKNOWN into KNOWN, so the puzzle changes under observation.";
+    setTimeout(()=>unlock(3), 1400);
+  } else {
+    f.innerHTML = "<span class='bad'>Close only if your answer changes the state of the puzzle.</span> Think knowledge, truth, proof, observation.";
+  }
+}
+function check3(){
+  const w = norm(document.getElementById("a3word").value);
+  const p = norm(document.getElementById("a3proof").value);
+  const valid = ["spangram","theme","word","puzzle","answer","question","rule","exception"].includes(w);
+  const enough = p.length > 24;
+  const f = document.getElementById("f3");
+  if(valid && enough){
+    f.innerHTML = "<span class='good'>Accepted.</span> Anti‑Strands has no privileged solution. You supplied a model in which your exception is the exception.";
+    setTimeout(()=>unlock(4), 1400);
+  } else if(!valid){
+    f.innerHTML = "<span class='bad'>Choose one of the eight displayed words.</span>";
+  } else {
+    f.innerHTML = "<span class='bad'>Give the rule that makes your chosen word exceptional.</span>";
+  }
+}
+function godel(choice){
+  const f = document.getElementById("f4");
+  const win = document.getElementById("godelWin");
+  if(choice === "undecidable"){
+    f.innerHTML = "<span class='good'>Yes.</span> Truth and derivability separate.";
+    win.classList.remove("hidden");
+  } else if(choice === "provable"){
+    f.innerHTML = "<span class='bad'>If G is derivable, then what G says is false. A consistent system cannot afford that.</span>";
+  } else if(choice === "false"){
+    f.innerHTML = "<span class='bad'>If G is false, then it is derivable. But deriving it asserts its own underivability.</span>";
+  } else {
+    f.innerHTML = "<span class='bad'>Tempting, but this puzzle wants the classical Gödel move: true in the intended reading, not derivable inside F.</span>";
+  }
+}
+function finale(){
+  document.getElementById("finale").classList.remove("hidden");
+  document.getElementById("finale").scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>
